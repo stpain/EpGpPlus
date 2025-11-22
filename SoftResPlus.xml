@@ -1,0 +1,498 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
+
+
+    <Frame name="SoftResPlusEncounterItemTemplate" mixin="SoftResPlusEncounterItem" enableMouse="true" virtual="true">
+
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture parentKey="Highlight" atlas="search-select" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="20" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-20" y="0"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="Icon">
+                    <Size x="28" y="28"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="2" y="0"/>
+                    </Anchors>
+                </Texture>
+
+                <FontString parentKey="Label" inherits="GameFontWhite">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" x="4" y="-1"/>
+                    </Anchors>
+                </FontString>
+
+                <FontString parentKey="ItemSubType" inherits="GameFontNormalSmall">
+                    <Color r="0.7" g="0.7" b="0.7"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Icon" relativePoint="BOTTOMRIGHT" x="4" y="2"/>
+                    </Anchors>
+                </FontString>
+
+                <Texture parentKey="Divider" atlas="Options_HorizontalDivider" hidden="true">
+                    <Size y="1"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="32" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-32" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+
+        <Frames>
+
+            <Button parentKey="AddToList" hidden="true">
+                <Size x="28" y="28"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="128-RedButton-Plus"/>
+                <PushedTexture atlas="128-RedButton-Plus-Pressed"/>
+            </Button>
+            <Button parentKey="DeleteItem" hidden="true">
+                <Size x="28" y="28"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="128-RedButton-Delete"/>
+                <PushedTexture atlas="128-RedButton-Delete-Pressed"/>
+            </Button>
+        </Frames>
+
+    </Frame>
+
+    <Frame name="SoftResPlusItemListMenuTemplate" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-1" y="1"/>
+                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND" textureSubLevel="-1">
+                <Texture parentKey="BackgroundArt">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="LEFT" x="20" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>        
+        </Layers>
+        <Frames>
+            <EditBox parentKey="ListNameEditBox" inherits="InputBoxTemplate" autoFocus="false" hidden="true">
+                <Size x="150" y="16"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="20" y="0"/>
+                </Anchors>
+            </EditBox>
+            <Button parentKey="Edit" hidden="true" registerForClicks="anyDown" enableMouse="true">
+                <Size x="26" y="26"/>
+                <NormalTexture atlas="glues-characterSelect-icon-notify-inProgress-hover"/>
+                <HighlightTexture atlas="Forge-ColorSwatchHighlight"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-10" y="0"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnEnter>
+                self.Edit:Show()
+            </OnEnter>
+            <OnLeave>
+                if self.Edit:IsMouseOver() then
+
+                else
+                    self.Edit:Hide()
+                end
+            </OnLeave>
+        </Scripts>
+    </Frame>
+
+
+    <Frame name="SoftResExpansionSelectTemplate" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-1" y="1"/>
+                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="BackgroundArt">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="LEFT" x="20" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="NewList" hidden="true">
+                <Size x="36" y="36"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="128-RedButton-Plus"/>
+                <PushedTexture atlas="128-RedButton-Plus-Pressed"/>
+            </Button>
+        </Frames>
+    </Frame>
+
+    <Frame name="SoftResPlusSessionSelectTemplate" mixin="SoftResPlusSessionSelectMixin" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight" atlas="clickcastlist-buttonhighlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-1" y="1"/>
+                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Background" atlas="clickcastlist-buttonbackground"> <!--groupfinder-button-cover-->
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="10" y="-6"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="TimeStamp" inherits="GameFontNormalSmall">
+                    <Color r="0.7" g="0.7" b="0.7"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="10" y="6"/>
+                    </Anchors>
+                </FontString>
+                <Texture parentKey="Selected" atlas="reportlist-buttonselect" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="SoftResPlusBasicListItemTemplate" mixin="SoftResPlusBasicListItemMixin" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormalSmall">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="1" y="-1"/>
+                        <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+
+    <Frame name="SoftResPlusUi" mixin="SoftResPlusMixin" inherits="PortraitFrameTemplate" parent="UIParent" frameStrata="HIGH" enableMouse="true" movable="true" resizable="true">
+
+        <Size x="600" y="800"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture atlas="auctionhouse-background-buy-noncommodities-header">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="3" y="-24"/>
+                        <Anchor point="TOPRIGHT" x="-3" y="-24"/>
+                    </Anchors>
+                    <Size y="34"/>
+                </Texture>
+            </Layer>
+        </Layers>
+
+        <Frames>
+
+            <Button parentKey="Resize" inherits="PanelResizeButtonTemplate">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="4"/>
+                </Anchors>
+            </Button>
+
+			<Frame parentKey="TabSystem" inherits="TabSystemTemplate">
+				<KeyValues>
+					<KeyValue key="minTabWidth" value="90" type="number"/>
+					<KeyValue key="maxTabWidth" value="120" type="number"/>
+					<KeyValue key="tabTemplate" value="TabSystemButtonTemplate" type="string"/>
+				</KeyValues>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="22" y="0"/>
+				</Anchors>
+			</Frame>
+
+            <Button parentKey="NewSession" inherits="UIPanelButtonTemplate" text="New Session">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="80" y="-28"/>
+                </Anchors>
+                <Size x="160" y="24"/>
+            </Button>
+
+            <!--Main panel with expansion select menu and encounter item display info-->
+            <Frame parentKey="Tab1" parentArray="childTabs" setAllPoints="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                </Anchors>
+
+                <Frames>
+                    <Frame parentKey="ExpansionMenu" inherits="TBDNoTemplateTreeviewTemplate,InsetFrameTemplate3">
+                        <Size x="333"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                    </Frame>
+
+                    <Frame parentKey="EncounterItemList" inherits="TBDTreeviewTemplate,InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionMenu" relativePoint="TOPRIGHT" x="2" y="-36"/>
+                            <Anchor point="BOTTOMRIGHT" x="-2" y="18"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="itemTemplate" value="SoftResPlusEncounterItemTemplate" type="string"/>
+                            <KeyValue key="elementHeight" value="32" type="number"/>
+                        </KeyValues>
+                    </Frame>
+
+                </Frames>
+
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="ListHeader" inherits="GameFontNormalLarge" justifyH="LEFT">
+                            <Size x="300" y="36"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionMenu" relativePoint="TOPRIGHT" x="10" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+
+                    <Layer level="ARTWORK" textureSubLevel="0">
+                        <Texture parentKey="ExpansionHeaderImage" useAtlasSize="true">
+                            <Size x="296" y="36"/>
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                    <Layer level="ARTWORK" textureSubLevel="2">
+                        <Texture parentKey="ExpansionHeaderGradient" file="Interface/Buttons/WHITE8x8">
+                            <Size x="296" y="36"/>
+                            <Gradient orientation="HORIZONTAL">
+                                <MinColor r="0" g="0" b="0" a="1"/>
+                                <MaxColor r="0" g="0" b="0" a="0"/>
+                            </Gradient>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionHeaderImage" relativePoint="TOPLEFT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+
+                    <Layer level="ARTWORK" textureSubLevel="0">
+                        <Texture parentKey="ExpansionHeaderFill" >
+                            <Size y="36"/>
+                            <Color r="0" g="0" b="0"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionMenu" relativePoint="TOPRIGHT" x="2" y="0"/>
+                                <Anchor point="TOPRIGHT"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+
+
+            <!-- Session tab -->
+            <Frame parentKey="Tab2" parentArray="childTabs" setAllPoints="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                </Anchors>
+
+                <Layers>
+
+                </Layers>
+
+                <Frames>
+
+                    <Frame parentKey="SessionContainer" inherits="InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                        <Size x="240"/>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="SessionListHeader" inherits="GameFontNormalLarge" text="Sessions">
+                                    <Anchors>
+                                        <Anchor point="TOP" x="0" y="-5"/>
+                                    </Anchors>
+                                    <Size x="230" y="20"/>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Frame parentKey="SessionList" inherits="TBDListviewTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                </Anchors>
+                                <KeyValues>
+                                    <KeyValue key="itemTemplate" value="SoftResPlusSessionSelectTemplate" type="string"/>
+                                    <KeyValue key="elementHeight" value="40" type="number"/>
+                                </KeyValues>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+
+                    <Frame parentKey="SessionPanel" inherits="InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.SessionContainer" relativePoint="TOPRIGHT" x="2" y="0"/>
+                            <Anchor point="BOTTOMRIGHT" x="0" y="18"/>
+                        </Anchors>
+
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="OptionsHeader" inherits="GameFontNormal" text="Configure Session">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="6" y="-6"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="NumAllowedReservesLabel" inherits="GameFontWhite" text="Number of reserves" justifyH="LEFT">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="16" y="-40"/>
+                                    </Anchors>
+                                    <Size x="160" y="28"/>
+                                </FontString>
+                                <FontString parentKey="NumAllowedReservesCount" inherits="GameFontNormalLarge" text="2">
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.NumAllowedReservesLabel" relativePoint="RIGHT" x="32" y="0"/>
+                                    </Anchors>
+                                    <Size x="40" y="28"/>
+                                </FontString>
+                            </Layer>
+                            <Layer level="ARTWORK">
+                                <Texture atlas="Options_HorizontalDivider">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="6" y="-170"/>
+                                        <Anchor point="TOPRIGHT" x="-6" y="-170"/>
+                                    </Anchors>
+                                    <Size y="1"/>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+
+                        <Frames>
+
+                            <Button parentKey="IncreaseReserves">
+                                <NormalTexture atlas="128-RedButton-Plus"/>
+                                <PushedTexture atlas="128-RedButton-Plus-Pressed"/>
+                                <Size x="28" y="28"/>
+                                <Anchors>
+                                    <Anchor point="RIGHT" relativeKey="$parent.NumAllowedReservesCount" relativePoint="LEFT" x="0" y="0"/>
+                                </Anchors>
+                            </Button>
+
+                            <Button parentKey="DecreaseReserves">
+                                <NormalTexture atlas="128-RedButton-Minus"/>
+                                <PushedTexture atlas="128-RedButton-Minus-Pressed"/>
+                                <Size x="28" y="28"/>
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.NumAllowedReservesCount" relativePoint="RIGHT" x="0" y="0"/>
+                                </Anchors>
+                            </Button>
+
+                            <CheckButton parentKey="AllowMultiReserves" inherits="TBDCheckButton">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="12" y="-80"/>
+                                </Anchors>
+                            </CheckButton>
+
+                            <Frame parentKey="HardReserveList" inherits="TBDListviewTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPRIGHT" x="-200" y="-50"/>
+                                </Anchors>
+                                <Size x="240" y="100"/>
+                                <KeyValues>
+                                    <KeyValue key="itemTemplate" value="SoftResPlusBasicListItemTemplate" type="string"/>
+                                    <KeyValue key="elementHeight" value="20" type="number"/>
+                                </KeyValues>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <Texture>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                            </Anchors>
+                                            <Color r="0.1" g="0.1" b="0.1" a="0"/>
+                                        </Texture>
+                                        <FontString inherits="GameFontNormal" text="Hard Reserves">
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="20"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                            </Frame>
+
+                            <Button parentKey="AddHardReserveItem" inherits="UIPanelButtonTemplate" text="Add Hard Reserve Item">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.AllowMultiReserves" relativePoint="BOTTOMLEFT" x="0" y="-14"/>
+                                </Anchors>
+                                <Size x="250" y="24"/>
+                            </Button>
+                        </Frames>
+                    </Frame>
+
+                </Frames>
+
+            </Frame>
+
+
+
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEvent method="OnEvent"/>
+            <OnDragStart>
+                self:StartMoving()
+            </OnDragStart>
+            <OnDragStop>
+                self:StopMovingOrSizing()
+            </OnDragStop>
+        </Scripts>
+    </Frame>
+
+</Ui>
