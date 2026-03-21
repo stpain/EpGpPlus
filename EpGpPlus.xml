@@ -1,0 +1,782 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
+
+    <Frame name="EpgpPlusSessionCharacterListTemplate" mixin="EpgpPlusSessionCharacterListMixin" virtual="true" enableMouse="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Background">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontWhite">
+                    <Anchors>
+                        <Anchor point="LEFT" x="10" y="0"/>
+                    </Anchors> 
+                </FontString>
+                <FontString parentKey="ReserveCount" inherits="GameFontWhite">
+                    <Anchors>
+                        <Anchor point="RIGHT" x="-10" y="0"/>
+                    </Anchors> 
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+    <Frame name="EpgpPlusGuildMemberListTemplate" mixin="EpgpPlusGuildMemberListMixin" virtual="true" enableMouse="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight" atlas="search-highlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="BottomDivider" atlas="Options_HorizontalDivider">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <Size y="1"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="ClassIcon">
+                    <Size x="20" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="1" y="0"/>
+                    </Anchors> 
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Name" parentArray="fontstrings" inherits="GameFontWhite" justifyH="LEFT">
+                    <Size x="110" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.ClassIcon" relativePoint="RIGHT" x="5" y="0"/>
+                    </Anchors> 
+                </FontString>
+                <FontString parentKey="Level" inherits="GameFontWhite">
+                    <Size x="30" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Name" relativePoint="RIGHT" x="5" y="0"/>
+                    </Anchors> 
+                </FontString>
+                <FontString parentKey="Rank" inherits="GameFontWhite" justifyH="LEFT">
+                    <Size x="110" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Level" relativePoint="RIGHT" x="5" y="0"/>
+                    </Anchors> 
+                </FontString>
+                <FontString parentKey="PublicNote" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Size x="170" y="20"/>
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Rank" relativePoint="RIGHT" x="5" y="0"/>
+                    </Anchors> 
+                </FontString>
+                <FontString parentKey="EP" inherits="GameFontWhite">
+                    <Size x="50" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.PublicNote" relativePoint="RIGHT" x="5" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="GP" inherits="GameFontWhite">
+                    <Size x="50" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.EP" relativePoint="RIGHT" x="1" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="PR" inherits="GameFontWhite">
+                    <Size x="50" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.GP" relativePoint="RIGHT" x="1" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="ItemLevel" inherits="GameFontWhite" >
+                    <Size x="50" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.PR" relativePoint="RIGHT" x="1" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+    <Frame name="EpgpPlusEncounterItemTemplate" mixin="EpgpPlusEncounterItem" enableMouse="true" virtual="true">
+
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture parentKey="Highlight" atlas="search-select" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="20" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-20" y="0"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="Icon">
+                    <Size x="28" y="28"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="2" y="0"/>
+                    </Anchors>
+                </Texture>
+
+                <FontString parentKey="Label" inherits="GameFontWhite">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" x="4" y="-1"/>
+                    </Anchors>
+                </FontString>
+
+                <FontString parentKey="ItemSubType" inherits="GameFontNormalSmall">
+                    <Color r="0.7" g="0.7" b="0.7"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Icon" relativePoint="BOTTOMRIGHT" x="4" y="2"/>
+                    </Anchors>
+                </FontString>
+
+                <Texture parentKey="Divider" atlas="Options_HorizontalDivider" hidden="true">
+                    <Size y="1"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="32" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-32" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+
+        <Frames>
+
+            <Button parentKey="AddToList" hidden="true">
+                <Size x="28" y="28"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-25" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="128-RedButton-Plus"/>
+                <PushedTexture atlas="128-RedButton-Plus-Pressed"/>
+            </Button>
+            <Button parentKey="DeleteItem" hidden="true">
+                <Size x="28" y="28"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-25" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="128-RedButton-Delete"/>
+                <PushedTexture atlas="128-RedButton-Delete-Pressed"/>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+    <Frame name="EpgpPlusItemListMenuTemplate" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-1" y="1"/>
+                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND" textureSubLevel="-1">
+                <Texture parentKey="BackgroundArt">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="LEFT" x="20" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>        
+        </Layers>
+        <Frames>
+            <EditBox parentKey="ListNameEditBox" inherits="InputBoxTemplate" autoFocus="false" hidden="true">
+                <Size x="150" y="16"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="20" y="0"/>
+                </Anchors>
+            </EditBox>
+            <Button parentKey="Edit" hidden="true" registerForClicks="anyDown" enableMouse="true">
+                <Size x="26" y="26"/>
+                <NormalTexture atlas="glues-characterSelect-icon-notify-inProgress-hover"/>
+                <HighlightTexture atlas="Forge-ColorSwatchHighlight"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-10" y="0"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnEnter>
+                self.Edit:Show()
+            </OnEnter>
+            <OnLeave>
+                if self.Edit:IsMouseOver() then
+
+                else
+                    self.Edit:Hide()
+                end
+            </OnLeave>
+        </Scripts>
+    </Frame>
+
+
+    <Frame name="SoftResExpansionSelectTemplate" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-1" y="1"/>
+                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="BackgroundArt">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="LEFT" x="20" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="NewList" hidden="true">
+                <Size x="36" y="36"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="128-RedButton-Plus"/>
+                <PushedTexture atlas="128-RedButton-Plus-Pressed"/>
+            </Button>
+        </Frames>
+    </Frame>
+
+    <Frame name="EpgpPlusSessionSelectTemplate" mixin="EpgpPlusSessionSelectMixin" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight" atlas="clickcastlist-buttonhighlight">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-1" y="1"/>
+                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Background" atlas="clickcastlist-buttonbackground"> <!--groupfinder-button-cover-->
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="10" y="-6"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="TimeStamp" inherits="GameFontNormalSmall">
+                    <Color r="0.7" g="0.7" b="0.7"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="10" y="6"/>
+                    </Anchors>
+                </FontString>
+                <Texture parentKey="Selected" atlas="reportlist-buttonselect" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="EpgpPlusBasicListItemTemplate" mixin="EpgpPlusBasicListItemMixin" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormalSmall">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="1" y="-1"/>
+                        <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+
+    <Frame name="EpgpPlusUi" mixin="EpgpPlusMixin" inherits="PortraitFrameTemplate" parent="UIParent" frameStrata="HIGH" enableMouse="true" movable="true" resizable="true">
+
+        <Size x="600" y="800"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture atlas="auctionhouse-background-buy-noncommodities-header">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="3" y="-24"/>
+                        <Anchor point="TOPRIGHT" x="-3" y="-24"/>
+                    </Anchors>
+                    <Size y="34"/>
+                </Texture>
+            </Layer>
+        </Layers>
+
+        <Frames>
+
+			<Frame name="$parentNavBar" inherits="NavBarTemplate" parentKey="navBar" frameLevel="9" frameStrata="DIALOG" enableMouse="true">
+				<Size x="500" y="32"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="61" y="-22"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BORDER" textureSubLevel="-5">
+						<Texture name="$parentInsetBotLeftCorner" inherits="UI-Frame-InnerBotLeftCorner" parentKey="InsetBorderBottomLeft">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT"  x="-3" y="-3"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentInsetBotRightCorner" inherits="UI-Frame-InnerBotRight" parentKey="InsetBorderBottomRight">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT"  x="3" y="-3"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentInsetBottomBorder" inherits="_UI-Frame-InnerBotTile" parentKey="InsetBorderBottom">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" relativeTo="$parentInsetBotLeftCorner" relativePoint="BOTTOMRIGHT"/>
+								<Anchor point="BOTTOMRIGHT" relativeTo="$parentInsetBotRightCorner" relativePoint="BOTTOMLEFT"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentInsetLeftBorder" inherits="!UI-Frame-InnerLeftTile" parentKey="InsetBorderLeft">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="-3" y="0"/>
+								<Anchor point="BOTTOMLEFT" relativeTo="$parentInsetBotLeftCorner" relativePoint="TOPLEFT"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentInsetRightBorder" inherits="!UI-Frame-InnerRightTile" parentKey="InsetBorderRight">
+							<Anchors>
+								<Anchor point="TOPRIGHT"  x="3" y="0"/>
+								<Anchor point="BOTTOMRIGHT" relativeTo="$parentInsetBotRightCorner" relativePoint="TOPRIGHT"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnShow>
+					</OnShow>
+				</Scripts>
+			</Frame>
+
+            <Button parentKey="Resize" inherits="PanelResizeButtonTemplate">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="4"/>
+                </Anchors>
+            </Button>
+
+            <EditBox parentKey="SearchItems" inherits="InputBoxTemplate" autoFocus="false">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-170" y="-28"/>
+                </Anchors>
+                <Size x="190" y="24"/>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <Texture atlas="common-search-magnifyingglass">
+                            <Size x="12" y="12"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" x="-6"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </EditBox>
+
+            <Button parentKey="ItemFilter" registerForClicks="anyDown" inherits="UIPanelButtonTemplate" text="Item Filter">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-26" y="-28"/>
+                </Anchors>
+                <Size x="130" y="24"/>
+            </Button>
+
+            <!-- home tab -->
+            <Frame parentKey="Tab1" parentArray="childTabs">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                </Anchors>
+
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="Background">
+                            <Anchors>
+                                <Anchor point="TOPLEFT"/>
+                                <Anchor point="BOTTOMRIGHT"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+
+                <Frames>
+
+                    <PlayerModel parentKey="CharacterModel">
+                        <Anchors>
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="BOTTOMLEFT"/>
+                            <Anchor point="RIGHT" relativePoint="CENTER"/>
+                        </Anchors>
+                        <Frames>
+							<Frame parentKey="ControlFrame" inherits="ModelSceneControlFrameTemplate" hidden="true">
+								<Anchors>
+									<Anchor point="TOP" x="0" y="-10"/>
+								</Anchors>
+								<KeyValues>
+									<KeyValue key="enableZoom" value="false" type="boolean" />
+								</KeyValues>
+							</Frame>
+                        </Frames>
+                        <Scripts>
+                            <OnLoad>
+                                self:RegisterUnitEvent("UNIT_MODEL_CHANGED", "player")
+                            </OnLoad>
+                            <OnEvent>
+                                self:SetUnit("player")
+                            </OnEvent>
+                        </Scripts>
+                    </PlayerModel>
+
+                    <Button parentKey="SelectLoot">
+                        <Size x="209" y="155"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-190" y="-100"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture atlas="GarrMission-NeutralChest">
+                                    <Size x="112" y="84"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <Texture atlas="tokens-frame-large" useAtlasSize="true">
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </Texture>
+                                <FontString text="Loot" inherits="GameFontNormalHuge">
+                                    <Anchors>
+                                        <Anchor point="TOP" relativePoint="BOTTOM" y="-4"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <HighlightTexture atlas="services-ring-large-glowpulse"/>
+                    </Button>
+
+                    <Button parentKey="GuildEPGP">
+                        <Size x="146" y="146"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-50" y="-100"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture atlas="tokens-guildChangeFaction-large" useAtlasSize="true">
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <Texture atlas="tokens-frame-large" useAtlasSize="true">
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </Texture>
+                                <FontString text="EPGP" inherits="GameFontNormalHuge">
+                                    <Anchors>
+                                        <Anchor point="TOP" relativePoint="BOTTOM" y="-4"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <HighlightTexture atlas="services-ring-large-glowpulse"/>
+                    </Button>
+
+                </Frames>
+            </Frame>
+
+            <!-- loot tab -->
+            <Frame parentKey="Tab2" parentArray="childTabs" >
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                </Anchors>
+
+                <Frames>
+                    <Frame parentKey="ExpansionMenu" inherits="TBDNoTemplateTreeviewTemplate,InsetFrameTemplate3">
+                        <Size x="333"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                    </Frame>
+
+                    <Frame parentKey="EncounterItemList" inherits="TBDTreeviewTemplate,InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionMenu" relativePoint="TOPRIGHT" x="2" y="-36"/>
+                            <Anchor point="BOTTOMRIGHT" x="-2" y="18"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="itemTemplate" value="EpgpPlusEncounterItemTemplate" type="string"/>
+                            <KeyValue key="elementHeight" value="32" type="number"/>
+                        </KeyValues>
+                    </Frame>
+
+                </Frames>
+
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="ListHeader" inherits="GameFontNormalLarge" justifyH="LEFT">
+                            <Size x="300" y="36"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionMenu" relativePoint="TOPRIGHT" x="10" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+
+                    <Layer level="ARTWORK" textureSubLevel="0">
+                        <Texture parentKey="ExpansionHeaderImage" useAtlasSize="true">
+                            <Size x="296" y="36"/>
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                    <Layer level="ARTWORK" textureSubLevel="2">
+                        <Texture parentKey="ExpansionHeaderGradient" file="Interface/Buttons/WHITE8x8">
+                            <Size x="296" y="36"/>
+                            <Gradient orientation="HORIZONTAL">
+                                <MinColor r="0" g="0" b="0" a="1"/>
+                                <MaxColor r="0" g="0" b="0" a="0"/>
+                            </Gradient>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionHeaderImage" relativePoint="TOPLEFT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+
+                    <Layer level="ARTWORK" textureSubLevel="0">
+                        <Texture parentKey="ExpansionHeaderFill" >
+                            <Size y="36"/>
+                            <Color r="0" g="0" b="0"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ExpansionMenu" relativePoint="TOPRIGHT" x="2" y="0"/>
+                                <Anchor point="TOPRIGHT"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+
+            <!-- guild tab -->
+            <Frame parentKey="Tab3" parentArray="childTabs">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                </Anchors>
+                <Frames>
+
+                    <Frame parentKey="GuildMemberControls" inherits="InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="TOPRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Size y="100"/>
+                        <Frames>
+                            <Button parentKey="FilterRanks" inherits="UIPanelButtonTemplate" text="Filter Ranks">
+                                <Size x="190" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="12" y="-12"/>
+                                </Anchors>
+                            </Button>
+
+                            <Slider parentKey="FilterMinLevel" inherits="TBDSliderLeftLabel">
+                                <Size x="110" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOPRIGHT" relativeKey="$parent.FilterRanks" relativePoint="BOTTOMRIGHT" x="-24" y="-8"/>
+                                </Anchors>
+                            </Slider>
+
+                            <CheckButton parentKey="ToggleMembers" inherits="ChatConfigCheckButtonTemplate" virtual="true">
+                                <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+                                <Size x="26" y="26"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="12" y="-72"/>
+                                </Anchors>
+                                <HitRectInsets left="0" right="-10"/>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="label" inherits="GameFontNormal" text="Show All Guild Members" justifyH="LEFT">
+                                            <Size x="160" y="26"/>
+                                            <Anchors>
+                                                <Anchor point="LEFT" x="26" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                            </CheckButton>
+
+                        </Frames>
+                    </Frame>
+<!-- 
+                    <Frame inherits="InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.GuildMemberControls" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+                            <Anchor point="TOPRIGHT" relativeKey="$parent.GuildMemberControls" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
+                        </Anchors>
+                        <Size y="30"/>
+                    </Frame> -->
+
+                    <!-- <Frame parentKey="GuildMemberList" inherits="TBDTreeviewTemplate,InsetFrameTemplate3"> -->
+                    <Frame parentKey="GuildMemberList" inherits="TBDNoTemplateTreeviewTemplate,InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="-130"/>
+                            <Anchor point="BOTTOMRIGHT" x="0" y="18"/>
+                        </Anchors>
+                        <!-- <KeyValues>
+                            <KeyValue key="itemTemplate" value="EpgpPlusGuildMemberListTemplate" type="string"/>
+                            <KeyValue key="elementHeight" value="22" type="number"/>
+                        </KeyValues> -->
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture atlas="_128-RedButton-Center" horizTile="true">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="-2" y="1"/>
+                                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" y="1"/>
+                                    </Anchors>
+                                    <Size y="30"/>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="NameHeader" inherits="GameFontNormal" text="Name" justifyH="LEFT">
+                                    <Size x="120" y="24"/>
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="20" y="3"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="LevelHeader" inherits="GameFontNormal" text="Level" justifyH="LEFT">
+                                    <Size x="40" y="24"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.NameHeader" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="RankHeader" inherits="GameFontNormal" text="Rank" justifyH="LEFT">
+                                    <Size x="110" y="24"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.LevelHeader" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="PublicNoteHeader" inherits="GameFontNormal" text="Public Note" justifyH="LEFT">
+                                    <Size x="170" y="24"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.RankHeader" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="EP" inherits="GameFontNormal" text="EP">
+                                    <Size x="50" y="20"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.PublicNoteHeader" relativePoint="RIGHT" x="5" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="GP" inherits="GameFontNormal" text="GP">
+                                    <Size x="50" y="20"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.EP" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="PR" inherits="GameFontNormal" text="PR">
+                                    <Size x="50" y="20"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.GP" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="ItemLevel" inherits="GameFontNormal" text="ilvl">
+                                    <Size x="50" y="20"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="$parent.PR" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <!-- <FontString parentKey="" inherits="GameFontNormal" text="">
+                                    <Size x="" y=""/>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeKey="" relativePoint="RIGHT" x="1" y="0"/>
+                                    </Anchors>
+                                </FontString> -->
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+
+            <!-- options tab -->
+            <Frame parentKey="Tab4" parentArray="childTabs" >
+                <Frames>
+                    <Button parentKey="FullNuke" inherits="UIPanelButtonTemplate" text="Reset Saved Variables">
+                        <Anchors>
+                            <Anchor point="CENTER"/>
+                        </Anchors>
+                        <Size x="200" y="24"/>
+                    </Button>
+                </Frames>
+            </Frame>
+
+
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEvent method="OnEvent"/>
+            <OnDragStart>
+                self:StartMoving()
+            </OnDragStart>
+            <OnDragStop>
+                self:StopMovingOrSizing()
+            </OnDragStop>
+        </Scripts>
+    </Frame>
+
+</Ui>

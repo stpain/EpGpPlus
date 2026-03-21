@@ -1,6 +1,6 @@
-local _, SoftResPlus = ...;
+local _, EpgpPlus = ...;
 
-SoftResPlus.ItemSetData = {
+EpgpPlus.ItemSetData = {
     { id = 1, name = [[The Gladiator]], reqSkill = 0, reqSkillLevel = 0, items = {11729,11726,11728,11731,11730,0,0,0,0,0,0,0,0,0,0,0,0,},},
     { id = 41, name = [[Dal'Rend's Arms]], reqSkill = 0, reqSkillLevel = 0, items = {12940,12939,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},},
     { id = 65, name = [[Spider's Kiss]], reqSkill = 0, reqSkillLevel = 0, items = {13218,13183,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},},

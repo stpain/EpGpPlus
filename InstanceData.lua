@@ -1,6 +1,6 @@
-local _, SoftResPlus = ...;
+local _, EpgpPlus = ...;
 
-SoftResPlus.InstanceData = {
+EpgpPlus.InstanceData = {
 { expansionIndex = 2, name = [[Ruby Sanctum H25]], encounter = [[Halion]], itemID = 54578, },
 { expansionIndex = 2, name = [[Ruby Sanctum H25]], encounter = [[Halion]], itemID = 54582, },
 { expansionIndex = 2, name = [[Ruby Sanctum H25]], encounter = [[Halion]], itemID = 54588, },
