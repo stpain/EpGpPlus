@@ -10,14 +10,22 @@ EpgpPlus.Callbacks:GenerateCallbackEvents({
     "Database_OnNewListCreated",
     "Database_OnListDeleted",
     "Database_OnItemFiltersChanged",
-
+    "Database_OnSyncDataReceived",
     "Database_OnGuildMembersChanged",
 
-    "Comms_OnPlayerEquipmentChanged",
+    "Database_OnPlayerInfoChanged",
+    "Database_OnLogEvent",
 
     "List_OnItemAdded",
     "List_OnItemDeleted",
     "List_OnItemsChanged",
 
+    "OnLootDataReceived",
+    "OnLootItemRoll",
+
+    "OnLootWindowClosed",
+
+    "OnPlayerPointsChanged_Event",
+    "OnPlayerPointsChanged_Internal",
 
 })

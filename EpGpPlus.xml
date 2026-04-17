@@ -1,6 +1,130 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
 
+    <Frame name="EpgpPlusLogEntryListviewItemTemplate" mixin="EpgpPlusLogEntryListviewItemMixin" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Time" inherits="GameFontNormalSmall" wordwrap="true" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="4" y="0"/>
+                    </Anchors>
+                    <Size x="75" y="28"/>
+                </FontString>
+                <FontString parentKey="Source" inherits="GameFontNormalSmall" justifyH="LEFT"  wordwrap="true">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Time" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="80" y="28"/>
+                </FontString>
+                <FontString parentKey="Action" inherits="GameFontNormalSmall" wordwrap="true" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Source" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="160" y="28"/>
+                </FontString>
+                <FontString parentKey="Target" inherits="GameFontNormalSmall" wordwrap="true" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Action" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="100" y="28"/>
+                </FontString>
+                <FontString parentKey="Comment" inherits="GameFontNormalSmall" wordwrap="true" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Target" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="120" y="28"/>
+                </FontString>
+                <FontString parentKey="ItemLink" inherits="GameFontNormalSmall" wordwrap="true" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Comment" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="120" y="28"/>
+                </FontString>
+                <FontString parentKey="PointChanged" inherits="GameFontWhite" wordwrap="true" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.ItemLink" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="40" y="28"/>
+                </FontString>
+                <FontString parentKey="PointsDelta" inherits="GameFontNormalSmall" wordwrap="true" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.PointChanged" relativePoint="RIGHT" x="2" y="0"/>
+                    </Anchors>
+                    <Size x="80" y="28"/>
+                </FontString>
+
+                <Line thickness="1">
+                    <Color r="0.89" g="0.86" b="0.78" a="0.25"/>
+                    <StartAnchor relativePoint="BOTTOMLEFT" x="6"/>
+                    <EndAnchor relativePoint="BOTTOMRIGHT" x="-6"/>
+                </Line>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="EpgpPlusMenuCheckbox" virtual="true">
+        <Frames>
+            <CheckButton parentKey="Checkbox" inherits="ChatConfigCheckButtonTemplate">
+                <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+                <Size x="26" y="26"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="2" y="0"/>
+                </Anchors>
+                <HitRectInsets left="0" right="-10"/>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="label" inherits="GameFontNormal" justifyH="LEFT">
+                            <Size x="160" y="26"/>
+                            <Anchors>
+                                <Anchor point="LEFT" x="26" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </CheckButton>
+        </Frames>
+    </Frame>
+
+    <CheckButton name="EpgpPlusCheckBoxWithLabel" inherits="ChatConfigCheckButtonTemplate" virtual="true">
+        <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+        <Size x="26" y="26"/>
+        <HitRectInsets left="0" right="-10"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="label" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="50" y="26"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="26" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                if (self.labelText) then
+                    self.label:SetText(self.labelText)
+                end
+            </OnLoad>
+            <OnEnter>
+                if (self.tooltipText) then
+                    GameTooltip:SetOwner(self, "TOPRIGHT")
+                    GameTooltip:AddLine(self.tooltipText)
+                    GameTooltip:Show()
+                end
+            </OnEnter>
+            <OnLeave>
+                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+            </OnLeave>
+        </Scripts>
+    </CheckButton>
+
     <Frame name="EpgpPlusSessionCharacterListTemplate" mixin="EpgpPlusSessionCharacterListMixin" virtual="true" enableMouse="true">
         <Layers>
             <Layer level="BACKGROUND">
@@ -111,9 +235,6 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                 </FontString>
             </Layer>
         </Layers>
-        <Frames>
-
-        </Frames>
         <Scripts>
             <OnLoad method="OnLoad"/>
         </Scripts>
@@ -183,6 +304,31 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
         </Scripts>
     </Frame>
 
+    <Frame name="EpgpPlusGearPointListviewItemTemplate" virtual="true">
+        <Frames>
+            <EditBox parentKey="InputBox" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Anchors>
+                    <Anchor point="RIGHT" x="-10" y="0"/>
+                </Anchors>
+                <Size x="100" y="22"/>
+            </EditBox>
+        </Frames>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormal" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" x="10" y="0"/>
+                    </Anchors>
+                </FontString>
+                <Line thickness="1">
+                    <Color r="0.89" g="0.86" b="0.78" a="0.25"/>
+                    <StartAnchor relativePoint="BOTTOMLEFT" x="16"/>
+                    <EndAnchor relativePoint="BOTTOMRIGHT" x="-100"/>
+                </Line>
+            </Layer>
+        </Layers>
+    </Frame>
+
     <Frame name="EpgpPlusItemListMenuTemplate" enableMouse="true" virtual="true">
         <Layers>
             <Layer level="HIGHLIGHT">
@@ -240,7 +386,7 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
     </Frame>
 
 
-    <Frame name="SoftResExpansionSelectTemplate" enableMouse="true" virtual="true">
+    <Frame name="EpgpExpansionSelectTemplate" enableMouse="true" virtual="true">
         <Layers>
             <Layer level="HIGHLIGHT">
                 <Texture parentKey="Highlight">
@@ -278,45 +424,123 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
         </Frames>
     </Frame>
 
-    <Frame name="EpgpPlusSessionSelectTemplate" mixin="EpgpPlusSessionSelectMixin" enableMouse="true" virtual="true">
+    <!--
+        This template is for the looted items, slightly badly named as its shown to everyone
+        players can click to need, greed, de or pass on the item and their choice will be
+        added to this elements node in the treeview
+    -->
+    <Frame name="EpgpPlusMasterLootItemListTemplate" enableMouse="true" virtual="true">
         <Layers>
-            <Layer level="HIGHLIGHT">
-                <Texture parentKey="Highlight" atlas="clickcastlist-buttonhighlight">
+            <Layer level="ARTWORK">
+                <Texture parentKey="Icon" atlas="tokens-counterBG-large">
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="-1" y="1"/>
-                        <Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+                        <Anchor point="LEFT" x="4" y="-2"/>
                     </Anchors>
-                </Texture>
-            </Layer>
-            <Layer level="BACKGROUND">
-                <Texture parentKey="Background" atlas="clickcastlist-buttonbackground"> <!--groupfinder-button-cover-->
-                    <Anchors>
-                        <Anchor point="TOPLEFT" x="2" y="0"/>
-                        <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
-                    </Anchors>
+                    <Size x="36" y="36"/>
                 </Texture>
             </Layer>
             <Layer level="OVERLAY">
-                <FontString parentKey="Label" inherits="GameFontNormal">
+                <FontString parentKey="GearPointLabel" inherits="NumberFontNormal">
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="10" y="-6"/>
+                        <Anchor point="CENTER" relativeKey="$parent.Icon" relativePoint="CENTER" x="0" y="0"/>
                     </Anchors>
                 </FontString>
-                <FontString parentKey="TimeStamp" inherits="GameFontNormalSmall">
-                    <Color r="0.7" g="0.7" b="0.7"/>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="BottomDivider" atlas="Options_HorizontalDivider">
                     <Anchors>
-                        <Anchor point="BOTTOMLEFT" x="10" y="6"/>
-                    </Anchors>
-                </FontString>
-                <Texture parentKey="Selected" atlas="reportlist-buttonselect" hidden="true">
-                    <Anchors>
-                        <Anchor point="TOPLEFT" x="2" y="0"/>
+                        <Anchor point="BOTTOMLEFT" x="18" y="0"/>
                         <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
                     </Anchors>
+                    <Size y="1"/>
                 </Texture>
             </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="ItemLink" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" x="6" y="-4"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="RollCount" inherits="GameFontNormalSmall">
+                    <Color r="0.3" g="0.7" b="0.5"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="4"/>
+                        <!-- <Anchor point="RIGHT" x="-112" y="0"/> -->
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="EquipLocation" inherits="GameFontNormalSmall">
+                    <Color r="0.7" g="0.7" b="0.7"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Icon" relativePoint="BOTTOMRIGHT" x="6" y="6"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
         </Layers>
+        <Frames>
+            <Button parentKey="Pass">
+                <NormalTexture atlas="lootroll-toast-icon-pass-up"/>
+                <PushedTexture atlas="lootroll-toast-icon-pass-down"/>
+                <HighlightTexture atlas="lootroll-toast-icon-pass-highlight"/>
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="0" y="0"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="DE">
+                <NormalTexture atlas="lootroll-toast-icon-disenchant-up"/>
+                <PushedTexture atlas="lootroll-toast-icon-disenchant-down"/>
+                <HighlightTexture atlas="lootroll-toast-icon-disenchant-highlight"/>
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-28" y="0"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="OffSpec">
+                <NormalTexture atlas="lootroll-toast-icon-greed-up"/>
+                <PushedTexture atlas="lootroll-toast-icon-greed-down"/>
+                <HighlightTexture atlas="lootroll-toast-icon-greed-highlight"/>
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-56" y="0"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="MainSpec">
+                <NormalTexture atlas="lootroll-toast-icon-need-up"/>
+                <PushedTexture atlas="lootroll-toast-icon-need-down"/>
+                <HighlightTexture atlas="lootroll-toast-icon-need-highlight"/>
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-84" y="0"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLeave>
+                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+            </OnLeave>
+            <OnLoad>
+                self.BottomDivider:SetTexelSnappingBias(0)
+                self.BottomDivider:SetSnapToPixelGrid(false)
+            </OnLoad>
+        </Scripts>
     </Frame>
+
+    <Button name="EpgpPlusBasicListTemplate" registerForClicks="AnyUp" mixin="EpgpPlusBasicListMixin" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Label" inherits="GameFontNormal" justifyH="LEFT">
+                    <!-- <Color r="1" g="1" b="1"/> -->
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="4" y="-1"/>
+                        <Anchor point="BOTTOMRIGHT" x="-4" y="1"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <NormalTexture atlas="groupfinder-button-cover"/>
+        <PushedTexture atlas="groupfinder-button-cover-down"/>
+        <HighlightTexture atlas="search-select"/>
+    </Button>
 
     <Frame name="EpgpPlusBasicListItemTemplate" mixin="EpgpPlusBasicListItemMixin" virtual="true">
         <Layers>
@@ -335,10 +559,47 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
         </Scripts>
     </Frame>
 
+    <Frame name="EpgpPlusBasicListItemTemplateNoMixin" virtual="true">
+        <Layers>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight">
+                    <Color r="0.4609375" g="0.64453125" b="0.68359375" a="0.1"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="LeftLabel" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="1" y="0"/>
+                    </Anchors>
+                    <Size x="140" y="20"/>
+                </FontString>
+                <FontString parentKey="LeftLabel2" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.LeftLabel" relativePoint="RIGHT" x="6" y="0"/>
+                    </Anchors>
+                    <Size x="250" y="20"/>
+                </FontString>
+                <FontString parentKey="RightLabel" inherits="GameFontNormalSmall">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" x="-8" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLeave>
+                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+            </OnLeave>
+        </Scripts>
+    </Frame>
+
 
     <Frame name="EpgpPlusUi" mixin="EpgpPlusMixin" inherits="PortraitFrameTemplate" parent="UIParent" frameStrata="HIGH" enableMouse="true" movable="true" resizable="true">
 
-        <Size x="600" y="800"/>
+        <Size x="1010" y="800"/>
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
@@ -352,6 +613,14 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                     </Anchors>
                     <Size y="34"/>
                 </Texture>
+            </Layer>
+
+            <Layer level="OVERLAY">
+                <FontString parentKey="EventText" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="6" y="4"/>
+                    </Anchors>
+                </FontString>
             </Layer>
         </Layers>
 
@@ -445,8 +714,79 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                                 <Anchor point="TOPLEFT"/>
                                 <Anchor point="BOTTOMRIGHT"/>
                             </Anchors>
+                            <!-- <Size x="480"/> -->
+                        </Texture>
+                        <!-- <Texture parentKey="BackgroundRight" atlas="warboard-background">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeKey="$parent.Background" relativePoint="TOPRIGHT"/>
+                                <Anchor point="BOTTOMLEFT" relativeKey="$parent.Background" relativePoint="BOTTOMRIGHT"/>
+                                <Anchor point="RIGHT"/>
+                            </Anchors>
+                        </Texture> -->
+                    </Layer>
+
+                    <!-- <Layer level="ARTWORK">
+                        <Texture atlas="!StoneFrameTile-Left">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="-2" y="2"/>
+                                <Anchor point="BOTTOMLEFT" x="-2" y="0"/>
+                            </Anchors>
+                            <Size x="28"/>
+                        </Texture>
+                        <Texture atlas="!StoneFrameTile-Left">
+                            <TexCoords left="1" right="0" top="0" bottom="1"/>
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" x="0" y="2"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                            <Size x="28"/>
+                        </Texture>
+                        <Texture atlas="_StoneFrameTile-Top">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="-2" y="2"/>
+                                <Anchor point="TOPRIGHT" x="0" y="2"/>
+                            </Anchors>
+                            <Size y="28"/>
+                        </Texture>
+                        <Texture atlas="_StoneFrameTile-Bottom">
+                            <Anchors>
+                                <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                            <Size y="28"/>
                         </Texture>
                     </Layer>
+
+                    <Layer level="OVERLAY">
+                        <Texture atlas="StoneFrameCorner-TopLeft">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="-2" y="2"/>
+                            </Anchors>
+                            <Size x="42" y="40"/>
+                        </Texture>
+                        <Texture atlas="StoneFrameCorner-TopLeft">
+                            <Anchors>
+                                <Anchor point="BOTTOMLEFT" x="-2" y="0"/>
+                            </Anchors>
+                            <Size x="42" y="40"/>
+                            <TexCoords left="0" right="1" top="1" bottom="0"/>
+                        </Texture>
+                        <Texture atlas="StoneFrameCorner-TopLeft">
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" x="0" y="2"/>
+                            </Anchors>
+                            <Size x="42" y="40"/>
+                            <TexCoords left="1" right="0" top="0" bottom="1"/>
+                        </Texture>
+                        <Texture atlas="StoneFrameCorner-TopLeft">
+                            <Anchors>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                            <Size x="42" y="40"/>
+                            <TexCoords left="1" right="0" top="1" bottom="0"/>
+                        </Texture>
+                    </Layer> -->
+
                 </Layers>
 
                 <Frames>
@@ -455,7 +795,7 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                         <Anchors>
                             <Anchor point="TOPLEFT"/>
                             <Anchor point="BOTTOMLEFT"/>
-                            <Anchor point="RIGHT" relativePoint="CENTER"/>
+                            <Anchor point="RIGHT" relativePoint="LEFT" x="480"/>
                         </Anchors>
                         <Frames>
 							<Frame parentKey="ControlFrame" inherits="ModelSceneControlFrameTemplate" hidden="true">
@@ -478,9 +818,9 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                     </PlayerModel>
 
                     <Button parentKey="SelectLoot">
-                        <Size x="209" y="155"/>
+                        <Size x="146" y="146"/>
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-190" y="-100"/>
+                            <Anchor point="TOPRIGHT" x="-240" y="-100"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -536,6 +876,35 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                         <HighlightTexture atlas="services-ring-large-glowpulse"/>
                     </Button>
 
+                    <Button parentKey="Options">
+                        <Size x="146" y="146"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.GuildEPGP" relativePoint="BOTTOM" x="0" y="-30"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture atlas="Mobile-Enginnering" useAtlasSize="false">
+                                    <Size x="70" y="70"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <Texture atlas="tokens-frame-large" useAtlasSize="true">
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </Texture>
+                                <FontString text="Settings" inherits="GameFontNormalHuge">
+                                    <Anchors>
+                                        <Anchor point="TOP" relativePoint="BOTTOM" y="-4"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <HighlightTexture atlas="services-ring-large-glowpulse"/>
+                    </Button>
                 </Frames>
             </Frame>
 
@@ -627,21 +996,211 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                         </Anchors>
                         <Size y="100"/>
                         <Frames>
-                            <Button parentKey="FilterRanks" inherits="UIPanelButtonTemplate" text="Filter Ranks">
-                                <Size x="190" y="24"/>
-                                <Anchors>
-                                    <Anchor point="TOPLEFT" x="12" y="-12"/>
-                                </Anchors>
-                            </Button>
 
-                            <Slider parentKey="FilterMinLevel" inherits="TBDSliderLeftLabel">
+                            <Frame parentKey="RosterOptions" inherits="InsetFrameTemplate3">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="6" y="-6"/>
+                                    <Anchor point="BOTTOMLEFT" x="6" y="6"/>
+                                </Anchors>
+                                <Size x="400"/>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString inherits="GameFontNormalLarge" text="Roster">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="8" y="-8"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Slider parentKey="FilterMinLevel" inherits="TBDSliderLeftLabel">
+                                        <Size x="120" y="24"/>
+                                        <Anchors>
+                                            <Anchor point="LEFT" x="74" y="0"/>
+                                        </Anchors>
+                                    </Slider>
+
+                                    <CheckButton parentKey="ToggleMembers" inherits="ChatConfigCheckButtonTemplate">
+                                        <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+                                        <Size x="26" y="26"/>
+                                        <Anchors>
+                                            <Anchor point="BOTTOMLEFT" x="14" y="6"/>
+                                        </Anchors>
+                                        <HitRectInsets left="0" right="-10"/>
+                                        <Layers>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="label" inherits="GameFontNormal" text="Show All Guild Members" justifyH="LEFT">
+                                                    <Size x="160" y="26"/>
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" x="26" y="0"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </CheckButton>
+
+                                    <Button parentKey="Filters" inherits="UIPanelButtonTemplate" text="Filters">
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-8" y="-8"/>
+                                        </Anchors>
+                                        <Size x="90" y="22"/>
+                                    </Button>
+
+                                    <EditBox parentKey="SearchInput" inherits="InputBoxTemplate" autoFocus="false">
+                                        <Anchors>
+                                            <Anchor point="BOTTOMRIGHT" x="-8" y="8"/>
+                                        </Anchors>
+                                        <Size x="110" y="20"/>
+                                        <Layers>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="Hint" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" x="3" y="-1"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </EditBox>
+                                </Frames>
+                            </Frame>
+
+                            <Frame parentKey="DecayOptions" inherits="InsetFrameTemplate3">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.RosterOptions" relativePoint="TOPRIGHT" x="4" y="0"/>
+                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.RosterOptions" relativePoint="BOTTOMRIGHT" x="4" y="0"/>
+                                </Anchors>
+                                <Size x="350"/>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString inherits="GameFontNormalLarge" text="Decay and Reset">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="8" y="-8"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Slider parentKey="DecayValueSlider" inherits="TBDSliderLeftLabel">
+                                        <Size x="160" y="24"/>
+                                        <Anchors>
+                                            <Anchor point="LEFT" x="52" y="0"/>
+                                        </Anchors>
+                                    </Slider>
+
+                                    <CheckButton parentKey="EffortPointCheckBox" inherits="EpgpPlusCheckBoxWithLabel">
+                                        <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+                                        <Anchors>
+                                            <Anchor point="BOTTOMLEFT" x="14" y="6"/>
+                                        </Anchors>
+                                        <KeyValues>
+                                            <KeyValue key="labelText" value="EP"/>
+                                        </KeyValues>
+                                    </CheckButton>
+
+                                    <CheckButton parentKey="GearPointCheckBox" inherits="EpgpPlusCheckBoxWithLabel">
+                                        <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeKey="$parent.EffortPointCheckBox" relativePoint="RIGHT" x="80" y="0"/>
+                                        </Anchors>
+                                        <KeyValues>
+                                            <KeyValue key="labelText" value="GP"/>
+                                        </KeyValues>
+                                    </CheckButton>
+
+                                    <Button parentKey="ApplyDecay" inherits="UIPanelButtonTemplate" text="Decay">
+                                        <Size x="80" y="22"/>
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-8" y="-8"/>
+                                        </Anchors>
+                                    </Button>
+
+                                    <Button parentKey="ResetPoints" inherits="UIPanelButtonTemplate" text="Reset">
+                                        <Size x="80" y="22"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeKey="$parent.ApplyDecay" relativePoint="BOTTOM" x="0" y="-4"/>
+                                        </Anchors>
+                                    </Button>
+
+                                    <Button parentKey="Help">
+                                        <Anchors>
+                                            <Anchor point="BOTTOMRIGHT" x="-8" y="8"/>
+                                        </Anchors>
+                                        <Size x="21" y="21"/>
+                                        <NormalTexture atlas="glueannouncementpopup-icon-info"/>
+                                        <HighlightTexture atlas="bags-roundhighlight"/>
+                                        <Scripts>
+                                            <OnEnter>
+                                                GameTooltip:SetOwner(self, "TOPRIGHT")
+                                                GameTooltip:AddLine("Decay and Reset")
+                                                GameTooltip:AddLine(self.tooltipText, nil, nil, nil, true)
+                                                GameTooltip:Show()
+                                            </OnEnter>
+                                            <OnLeave>
+                                                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+                                            </OnLeave>
+                                        </Scripts>
+                                    </Button>
+                                </Frames>
+                            </Frame>
+
+                            <Frame parentKey="SyncOptions" inherits="InsetFrameTemplate3">
+                                <Anchors>
+                                    <Anchor point="TOPRIGHT" x="-6" y="-6"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+                                    <Anchor point="LEFT" relativeKey="$parent.DecayOptions" relativePoint="RIGHT" x="4" y="0"/>
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString inherits="GameFontNormalLarge" text="Sync">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="8" y="-8"/>
+                                            </Anchors>
+                                        </FontString>
+                                        <!-- <FontString parentKey="Source" inherits="GameFontNormal" justifyH="RIGHT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOPRIGHT" x="-8" y="-8"/>
+                                            </Anchors>
+                                        </FontString> -->
+                                        <FontString parentKey="Info" inherits="GameFontNormal" justifyH="LEFT" justifyV="BOTTOM">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="BOTTOMLEFT" x="8" y="8"/>
+                                                <Anchor point="TOPLEFT" relativePoint="LEFT" x="8" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Button parentKey="Sync">
+                                        <NormalTexture atlas="QuestSharing-QuestLog-Button"/>
+                                        <PushedTexture atlas="QuestSharing-QuestLog-ButtonPressed"/>
+                                        <HighlightTexture atlas="QuestSharing-QuestLog-ButtonHighlight"/>
+                                        <Size x="40" y="40"/>
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-8" y="-8"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Cooldown parentKey="Cooldown" setAllPoints="true" inherits="CooldownFrameTemplate">
+
+                                            </Cooldown>
+                                        </Frames>
+                                    </Button>
+                                </Frames>
+                            </Frame>
+
+
+                            <!-- <Slider parentKey="FilterMinLevel" inherits="TBDSliderLeftLabel">
                                 <Size x="110" y="24"/>
                                 <Anchors>
-                                    <Anchor point="TOPRIGHT" relativeKey="$parent.FilterRanks" relativePoint="BOTTOMRIGHT" x="-24" y="-8"/>
+                                    <Anchor point="TOPRIGHT" relativeKey="$parent.Filters" relativePoint="BOTTOMRIGHT" x="-24" y="-8"/>
                                 </Anchors>
                             </Slider>
 
-                            <CheckButton parentKey="ToggleMembers" inherits="ChatConfigCheckButtonTemplate" virtual="true">
+                            <CheckButton parentKey="ToggleMembers" inherits="ChatConfigCheckButtonTemplate">
                                 <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
                                 <Size x="26" y="26"/>
                                 <Anchors>
@@ -658,29 +1217,46 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                                         </FontString>
                                     </Layer>
                                 </Layers>
-                            </CheckButton>
+                            </CheckButton> -->
+
+                            <!-- <Button parentKey="Sync">
+                                <NormalTexture atlas="QuestSharing-QuestLog-Button"/>
+                                <PushedTexture atlas="QuestSharing-QuestLog-ButtonPressed"/>
+                                <HighlightTexture atlas="QuestSharing-QuestLog-ButtonHighlight"/>
+                                <Size x="44" y="44"/>
+                                <Anchors>
+                                    <Anchor point="TOPRIGHT" x="-12" y="-42"/>
+                                </Anchors>
+                            </Button> -->
 
                         </Frames>
-                    </Frame>
-<!-- 
-                    <Frame inherits="InsetFrameTemplate3">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.GuildMemberControls" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
-                            <Anchor point="TOPRIGHT" relativeKey="$parent.GuildMemberControls" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
-                        </Anchors>
-                        <Size y="30"/>
-                    </Frame> -->
 
-                    <!-- <Frame parentKey="GuildMemberList" inherits="TBDTreeviewTemplate,InsetFrameTemplate3"> -->
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="DataSourceInfoLabel" inherits="GameFontNormal">
+                                    <Anchors>
+                                        <Anchor point="TOPRIGHT" x="-12" y="-12"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+
+
                     <Frame parentKey="GuildMemberList" inherits="TBDNoTemplateTreeviewTemplate,InsetFrameTemplate3">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-130"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="18"/>
                         </Anchors>
-                        <!-- <KeyValues>
-                            <KeyValue key="itemTemplate" value="EpgpPlusGuildMemberListTemplate" type="string"/>
-                            <KeyValue key="elementHeight" value="22" type="number"/>
-                        </KeyValues> -->
+                        <Frames>
+                            <Button parentKey="Header" registerForClicks="AnyDown">
+                                <Anchors>
+                                    <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="-2" y="1"/>
+                                    <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" y="1"/>
+                                </Anchors>
+                                <Size y="30"/>
+                            </Button>
+                        </Frames>
                         <Layers>
                             <Layer level="BACKGROUND">
                                 <Texture atlas="_128-RedButton-Center" horizTile="true">
@@ -734,7 +1310,7 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
                                         <Anchor point="LEFT" relativeKey="$parent.GP" relativePoint="RIGHT" x="1" y="0"/>
                                     </Anchors>
                                 </FontString>
-                                <FontString parentKey="ItemLevel" inherits="GameFontNormal" text="ilvl">
+                                <FontString parentKey="Equipment" inherits="GameFontNormal" text="Items">
                                     <Size x="50" y="20"/>
                                     <Anchors>
                                         <Anchor point="LEFT" relativeKey="$parent.PR" relativePoint="RIGHT" x="1" y="0"/>
@@ -754,15 +1330,330 @@ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
 
             <!-- options tab -->
             <Frame parentKey="Tab4" parentArray="childTabs" >
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                </Anchors>
                 <Frames>
-                    <Button parentKey="FullNuke" inherits="UIPanelButtonTemplate" text="Reset Saved Variables">
+
+                    <Frame parentKey="MenuList" inherits="TBDNoTemplateTreeviewTemplate,InsetFrameTemplate3">
                         <Anchors>
-                            <Anchor point="CENTER"/>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="2"/>
                         </Anchors>
-                        <Size x="200" y="24"/>
-                    </Button>
+                        <Size x="190"/>
+                    </Frame>
+
+                    <Frame parentKey="Content">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.MenuList" relativePoint="TOPRIGHT" x="2" y="0"/>
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.MenuList" relativePoint="BOTTOMRIGHT" x="2" y="0"/>
+                            <Anchor point="RIGHT" x="-2" y="0"/>
+                        </Anchors>
+
+                        <Frames>
+                            <Frame parentKey="General" parentArray="categories" inherits="InsetFrameTemplate3" setAllPoints="true" hidden="true">
+                                <Frames>
+                                    <Button parentKey="FullNuke" inherits="UIPanelButtonTemplate" text="Reset Saved Variables">
+                                        <Anchors>
+                                            <Anchor point="CENTER"/>
+                                        </Anchors>
+                                        <Size x="200" y="24"/>
+                                    </Button>
+
+                                    <Slider parentKey="PointsListenerThrottle" minValue="5" maxValue="30" inherits="TBDSliderLeftLabel">
+                                        <Size x="160" y="24"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" x="0" y="-100"/>
+                                        </Anchors>
+                                    </Slider>
+                                    <Button parentKey="PointsListenerThrottleHelp">
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeKey="$parent.PointsListenerThrottle" relativePoint="RIGHT" x="18" y="0"/>
+                                        </Anchors>
+                                        <Size x="21" y="21"/>
+                                        <NormalTexture atlas="glueannouncementpopup-icon-info"/>
+                                        <HighlightTexture atlas="bags-roundhighlight"/>
+                                        <Scripts>
+                                            <OnEnter>
+                                                GameTooltip:SetOwner(self, "TOPRIGHT")
+                                                GameTooltip:AddLine("Points Listener")
+                                                GameTooltip:AddLine(self.tooltipText, nil, nil, nil, true)
+                                                GameTooltip:Show()
+                                            </OnEnter>
+                                            <OnLeave>
+                                                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+                                            </OnLeave>
+                                        </Scripts>
+                                    </Button>
+
+                                    <CheckButton parentKey="SafetyMode" inherits="ChatConfigCheckButtonTemplate">
+                                        <CheckedTexture atlas="orderhalltalents-done-checkmark"/>
+                                        <Size x="26" y="26"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeKey="$parent.PointsListenerThrottle" relativePoint="BOTTOM" x="0" y="-32"/>
+                                        </Anchors>
+                                        <HitRectInsets left="0" right="-10"/>
+                                        <Layers>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="label" inherits="GameFontNormal" text="Safety mode" justifyH="LEFT">
+                                                    <Size x="160" y="26"/>
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" x="26" y="0"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </CheckButton>
+                                </Frames>
+                            </Frame>
+                            <Frame parentKey="EffortPoints" parentArray="categories" inherits="InsetFrameTemplate3" setAllPoints="true" hidden="true">
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <Texture atlas="Options_HorizontalDivider" useAtlasSize="true">
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="-70"/>
+                                            </Anchors>
+                                        </Texture>
+                                    </Layer>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="Header" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="18" y="-18"/>
+                                            </Anchors>
+                                            <Size x="550" y="40"/>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Frame parentKey="Listview" inherits="TBDNoTemplateListviewTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="0" y="-80"/>
+                                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Button parentKey="Push" inherits="UIPanelButtonTemplate" text="Push EP">
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-36" y="-32"/>
+                                        </Anchors>
+                                        <Size x="106" y="22"/>
+                                    </Button>
+                                </Frames>
+                            </Frame>
+                            <Frame parentKey="GearPoints" parentArray="categories" inherits="InsetFrameTemplate3" setAllPoints="true" hidden="true">
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <Texture atlas="Options_HorizontalDivider" useAtlasSize="true">
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="-70"/>
+                                            </Anchors>
+                                        </Texture>
+                                    </Layer>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="Header" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="18" y="-18"/>
+                                            </Anchors>
+                                            <Size x="550" y="40"/>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Frame parentKey="Listview" inherits="TBDNoTemplateListviewTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="0" y="-80"/>
+                                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Button parentKey="Push" inherits="UIPanelButtonTemplate" text="Push GP">
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-36" y="-32"/>
+                                        </Anchors>
+                                        <Size x="106" y="22"/>
+                                    </Button>
+                                </Frames>
+                            </Frame>
+                            <Frame parentKey="Logs" parentArray="categories" inherits="InsetFrameTemplate3" setAllPoints="true" hidden="true">
+                                <Frames>
+                                    <EditBox parentKey="SearchInput" inherits="InputBoxTemplate" autoFocus="false">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="100" y="-32"/>
+                                        </Anchors>
+                                        <Size x="200" y="22"/>
+                                        <Layers>
+                                            <Layer level="OVERLAY">
+                                                <FontString inherits="GameFontNormal" text="Search">
+                                                    <Anchors>
+                                                        <Anchor point="RIGHT" relativePoint="LEFT" x="-14"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </EditBox>
+                                    <Button parentKey="DeleteLogs" inherits="UIPanelButtonTemplate" text="Delete Logs">
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-36" y="-32"/>
+                                        </Anchors>
+                                        <Size x="106" y="22"/>
+                                    </Button>
+                                    <Frame parentKey="Listview" inherits="TBDListviewTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="0" y="-80"/>
+                                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                        </Anchors>
+                                        <KeyValues>
+                                            <KeyValue key="itemTemplate" value="EpgpPlusLogEntryListviewItemTemplate" type="string"/>
+                                            <KeyValue key="elementHeight" value="28" type="number"/>
+                                        </KeyValues>
+                                        <Layers>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="Time" inherits="GameFontNormal" wordwrap="true" justifyH="LEFT" justifyV="BOTTOM" text="Time">
+                                                    <Anchors>
+                                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="2"/>
+                                                    </Anchors>
+                                                    <Size x="75" y="18"/>
+                                                </FontString>
+                                                <FontString parentKey="Source" inherits="GameFontNormal" justifyH="LEFT" justifyV="BOTTOM" wordwrap="true" text="Source">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeKey="$parent.Time" relativePoint="RIGHT" x="2" y="0"/>
+                                                    </Anchors>
+                                                    <Size x="80" y="18"/>
+                                                </FontString>
+                                                <FontString parentKey="Action" inherits="GameFontNormal" wordwrap="true" justifyH="LEFT" justifyV="BOTTOM" text="Event">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeKey="$parent.Source" relativePoint="RIGHT" x="2" y="0"/>
+                                                    </Anchors>
+                                                    <Size x="160" y="18"/>
+                                                </FontString>
+                                                <FontString parentKey="Target" inherits="GameFontNormal" wordwrap="true" justifyH="LEFT" justifyV="BOTTOM" text="Target">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeKey="$parent.Action" relativePoint="RIGHT" x="2" y="0"/>
+                                                    </Anchors>
+                                                    <Size x="100" y="18"/>
+                                                </FontString>
+                                                <FontString parentKey="Comment" inherits="GameFontNormal" wordwrap="true" justifyH="LEFT" justifyV="BOTTOM" text="Comment">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeKey="$parent.Target" relativePoint="RIGHT" x="2" y="0"/>
+                                                    </Anchors>
+                                                    <Size x="120" y="18"/>
+                                                </FontString>
+                                                <FontString parentKey="ItemLink" inherits="GameFontNormal" wordwrap="true" justifyH="LEFT" justifyV="BOTTOM" text="Item">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeKey="$parent.Comment" relativePoint="RIGHT" x="2" y="0"/>
+                                                    </Anchors>
+                                                    <Size x="120" y="18"/>
+                                                </FontString>
+                                                <FontString parentKey="PointChanged" inherits="GameFontNormal" wordwrap="true" justifyH="LEFT" justifyV="BOTTOM" text="Point Change">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeKey="$parent.ItemLink" relativePoint="RIGHT" x="2" y="0"/>
+                                                    </Anchors>
+                                                    <Size x="130" y="18"/>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </Frame>
+                                </Frames>
+                            </Frame>
+
+                            <Frame parentKey="ImportExport" parentArray="categories" inherits="InsetFrameTemplate3" setAllPoints="true" hidden="true">
+
+                                <Frames>
+
+                                    <Button parentKey="GenerateExport" inherits="UIPanelButtonTemplate" text="Generate Export">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="12" y="-12"/>
+                                        </Anchors>
+                                        <Size x="140" y="22"/>
+                                    </Button>
+
+                                    <Button parentKey="ParseData" inherits="UIPanelButtonTemplate" text="Parse Data">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeKey="$parent.GenerateExport" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
+                                        </Anchors>
+                                        <Size x="140" y="22"/>
+                                    </Button>
+
+                                    <Button parentKey="ImportData" inherits="UIPanelButtonTemplate" text="Import Data">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeKey="$parent.ParseData" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
+                                        </Anchors>
+                                        <Size x="140" y="22"/>
+                                    </Button>
+
+                                    <ScrollFrame parentKey="EditboxScroller" inherits="InputScrollFrameTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="12" y="-100"/>
+                                            <Anchor point="BOTTOMRIGHT" x="-42" y="12"/>
+                                        </Anchors>
+                                    </ScrollFrame>
+                                </Frames>
+
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="EditboxInfo" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="170" y="-12"/>
+                                                <Anchor point="TOPRIGHT" x="-12" y="-12"/>
+                                            </Anchors>
+                                            <Size y="80"/>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+
+                            </Frame>
+                        </Frames>
+                    </Frame>
+
                 </Frames>
             </Frame>
+
+
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEvent method="OnEvent"/>
+            <OnDragStart>
+                self:StartMoving()
+            </OnDragStart>
+            <OnDragStop>
+                self:StopMovingOrSizing()
+            </OnDragStop>
+        </Scripts>
+    </Frame>
+
+
+
+    <Frame name="EpgpPlusMasterLootUi" inherits="PortraitFrameTemplate" mixin="EpgpPlusMasterLootMixin" parent="UIParent" movable="true" resizable="true">
+
+        <Size x="500" y="225"/>
+
+        <Anchors>
+            <Anchor point="CENTER" x="0" y="0"/>
+        </Anchors>
+
+        <Frames>
+
+            <Button parentKey="Resize" inherits="PanelResizeButtonTemplate">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="4"/>
+                </Anchors>
+            </Button>
+
+            <Frame parentKey="LootListview" inherits="TBDNoTemplateTreeviewTemplate,InsetFrameTemplate3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="12" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-12" y="24"/>
+                </Anchors>
+            </Frame>
+
+            <!-- <Button parentKey="Sort" inherits="UIPanelButtonTemplate" text="Sort">
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.LootListview" relativePoint="TOPRIGHT" x="0" y="4"/>
+                </Anchors>
+                <Size x="80" y="22"/>
+            </Button> -->
 
 
         </Frames>

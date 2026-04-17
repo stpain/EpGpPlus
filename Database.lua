@@ -2,20 +2,6 @@
 
 local addonName, EpgpPlus = ...;
 
---[[
-    Session Table
-    {
-        host [string] - the player who created and opened the session
-        created [number] - a timestamp of when the session was created
-        instance [string] = instanceName,
-        players [table] - list of players in the group
-        log [table] - list of events for the session
-        softReserves [table] - list of itemIDs > list of players
-        hardReserves [table] - list of itemIDs that are hard reserved for the sesison
-        defaultNumReserves [number] - default SR for each player
-        multiReserve [boolean] - flag to allow multi reserves on items
-    }
-]]
 
 local ColorHexCodes = {
     PlayerName = "|cffF7BA00",
@@ -24,15 +10,14 @@ local ColorHexCodes = {
 
 local DatabaseDefaults = {
     characterDirectory = {},
-    instances = {},
     lists = {},
-    logs = {},
+    pointsLog = {},
     config = {},
-    sessions = {},
     itemDb = {},
     itemFilters = {},
-    guildMembers = {},
-    
+    syncData = {},
+    effortPoints = {},
+    gearPoints = {},
 }
 
 local Database = {}
@@ -64,25 +49,137 @@ function Database:Init(reset)
 
     self.db = EpgpPlusSavedVar;
 
-    self:LoadDefaultItemFilters()
+    if self.db.config.safetyModeActive == nil then
+        self.db.config.safetyModeActive = true;
+    end
+    if self.db.config.pointsListenerThrottle == nil then
+        self.db.config.pointsListenerThrottle = 5;
+    end
 
+    self:LoadDefaultItemFilters()
+    self:InitializeEncounters()
+    self:InitializeGP()
+
+    --smooth this out
     if (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC) then
         self:ProcessLootItems(0)
     end
     if (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC) then
+        self:ProcessLootItems(0)
         self:ProcessLootItems(1)
-    end
-
-    if ViragDevTool_AddData then
-        ViragDevTool_AddData(EpgpPlusSavedVar, addonName)
     end
 
     EpgpPlus.Callbacks:RegisterCallback("List_OnItemAdded", self.List_OnItemAdded, self)
     EpgpPlus.Callbacks:RegisterCallback("List_OnItemDeleted", self.List_OnItemDeleted, self)
+    EpgpPlus.Callbacks:RegisterCallback("OnPlayerPointsChanged_Internal", self.OnPlayerPointsChanged_Internal, self)
 
     EpgpPlus.Callbacks:TriggerEvent("Database_OnInitialized")
 end
 
+function Database:GetTable(tbl)
+    if self.db and self.db[tbl] then
+        return self.db[tbl]
+    end
+end
+
+function Database:SetTable(tbl, data)
+    if self.db and self.db[tbl] then
+        self.db[tbl] = data
+    end
+end
+
+function Database:SetEncounterEP(encounterID, ep)
+    if self.db and self.db.effortPoints then
+        self.db.effortPoints[encounterID] = ep
+    end
+end
+
+function Database:GetEncounterEP(encounterID)
+    if self.db and self.db.effortPoints and self.db.effortPoints[encounterID] then
+        return self.db.effortPoints[encounterID]
+    end
+    return EpgpPlus.Constants.DefaultEncounterEP[EpgpPlus.Constants.EncounterIDs[encounterID]];
+end
+
+function Database:InitializeEncounters()
+
+    local function GetEncounterID(encounterName)
+        for id, name in pairs(EpgpPlus.Constants.EncounterIDs) do
+            if (name == encounterName) then
+                return id;
+            end
+        end
+    end
+
+    if self.db and self.db.effortPoints then
+        for expansion, tbl in ipairs(EpgpPlus.Constants.DefaultEncounterEP) do
+            for k, instance in ipairs(tbl) do
+                for encounter, data in ipairs(instance) do
+                    local encounterID = GetEncounterID(data.name);
+                    if self.db.effortPoints[encounterID] == nil then
+                        self.db.effortPoints[encounterID] = data.ep;
+                    end
+                end
+            end
+        end
+    end
+end
+
+
+
+function Database:SetGP(slot, gp)
+    if self.db and self.db.gearPoints then
+        self.db.gearPoints[slot] = gp;
+    end
+end
+
+function Database:GetGP(slot)
+    if self.db and self.db.gearPoints then
+        return self.db.gearPoints[slot];
+    end
+end
+
+function Database:InitializeGP()
+    if self.db and self.db.gearPoints then
+        for _, info in ipairs(EpgpPlus.Constants.GearPoints) do
+            if self.db.gearPoints[info.slot] == nil then
+                self.db.gearPoints[info.slot] = info.modifier;
+            end
+            if type(self.db.gearPoints[info.slot]) ~= "number" then
+                self.db.gearPoints[info.slot] = info.modifier;
+            end
+        end
+    end
+end
+
+
+
+--[[
+    Log
+]]
+
+
+function Database:AddPointsLogEntry(entry)
+    if self.db and self.db.pointsLog then
+
+        local exists = false;
+        for k, v in ipairs(self.db.pointsLog) do
+
+            --compare the source and time values as these should create a unique "id"
+            if (v.src == entry.src) and (v.tme == entry.tme) then
+                exists = true;
+            end
+        end
+        if (exists == false) then
+            table.insert(self.db.pointsLog, entry)
+            EpgpPlus.Callbacks:TriggerEvent("Database_OnLogEvent")
+        end
+    end
+end
+
+function Database:GetPointsLog()
+    return self.db.pointsLog;
+end
 
 --[[
     Config
@@ -90,7 +187,7 @@ end
 function Database:SetConfig(key, val)
     if self.db and self.db.config then
         self.db.config[key] = val
-        EpgpPlus.Callbacks:TriggerEvent("Database_OnConfigChanged")
+        EpgpPlus.Callbacks:TriggerEvent("Database_OnConfigChanged", key, val)
     end
 end
 
@@ -115,6 +212,7 @@ function Database:UpdateCharacterDirectory(name, key, val)
                 [key] = val,
             }
         end
+        EpgpPlus.Callbacks:TriggerEvent("Database_OnPlayerInfoChanged", name, key)
     end
 end
 
@@ -127,6 +225,97 @@ function Database:GetCharacterInfo(name, key)
         end
     end
 end
+
+--points stored in different table
+function Database:StoreEpGPSyncData(sender, data, comment)
+    --print("got sync data")
+    --print(data.source)
+    if self.db then
+        self.db.syncData = data;
+        EpgpPlus.Callbacks:TriggerEvent("Database_OnSyncDataReceived")
+
+
+        -- local logEntry = EpgpPlus.Api.CreateLogEntry(
+        --     data.source, 
+        --     "(StoreEpGPSyncData)", 
+        --     "", 
+        --     "", 
+        --     "", 
+        --     "", 
+        --     comment or "", 
+        --     data.syncTime
+        -- )
+        -- self:AddPointsLogEntry(logEntry)
+
+        --EpgpPlus.Comms:SendGuildMessage("OnPointsLogEntryReceived", logEntry)        
+    end
+end
+
+function Database:OnPlayerPointsChanged_Internal(name, ep, gp)
+    if self.db and self.db.syncData and self.db.syncData.data then
+        self.db.syncData.data[name] = {
+            ep = ep,
+            gp = gp,
+            pr = (ep/gp)
+        }
+    end
+end
+
+--now takes a table of t[name] = officerNote
+function Database:UpdatePlayerSyncData(data)
+    if self.db and self.db.syncData and self.db.syncData.data then
+        for name, officerNote in pairs(data) do
+            local ep, gp = strsplit(",", officerNote);
+            ep = tonumber(ep);
+            gp = tonumber(gp);
+            self.db.syncData.data[name] = {
+                ep = ep,
+                gp = gp,
+                pr = (ep/gp)
+            }
+            EpgpPlus.Callbacks:TriggerEvent("OnPlayerPointsChanged_Event", name, ep , gp)
+        end
+    end
+    --DevTools_Dump(data)
+    -- if self.db and self.db.syncData and self.db.syncData.data then
+    --     for _, info in ipairs(self.db.syncData.data) do
+    --         if (info.name == data.player) then
+    --             local ep, gp = strsplit(",", data.officerNote);
+
+    --             info.ep = tonumber(ep)
+    --             info.gp = tonumber(gp)
+
+    --             local newPR = (info.ep / info.gp);
+    --             info.pr = newPR;
+
+    --             EpgpPlus.Callbacks:TriggerEvent("OnPlayerPointsChanged_Event", info)
+    --             return;
+    --         end
+    --     end
+    -- end
+end
+
+function Database:GetLastSyncDataTime()
+    if self.db and self.db.syncData and self.db.syncData.data then
+        return self.db.syncData.syncTime;
+    end
+end
+
+function Database:GetEpGpSyncData(name)
+    if self.db and self.db.syncData and self.db.syncData.data then
+        if name and self.db.syncData.data[name] then
+            return self.db.syncData.data[name];
+            -- for _, info in ipairs(self.db.syncData.data) do
+            --     if name == info.name then
+            --         return info, self.db.syncData.source, self.db.syncData.syncTime;
+            --     end
+            -- end
+        else
+            return self.db.syncData;
+        end
+    end
+end
+
 
 --[[
     Item filters
@@ -143,7 +332,7 @@ local createSubClassTables = {
 }
 function Database:LoadDefaultItemFilters()
     if self.db and self.db.itemFilters then
-        for _, info in ipairs(EpgpPlus.ItemFilters) do
+        for _, info in ipairs(EpgpPlus.Constants.ItemFilters) do
             if self.db.itemFilters[info.classID] == nil then
                 if createSubClassTables[info.classID] then
                     self.db.itemFilters[info.classID] = {}
@@ -400,6 +589,28 @@ function Database:GetAllLists()
     end
 end
 
+function Database:IsItemInList(itemID, returnTable)
+    local ret = {};
+    if self.db and self.db.lists then
+        for _, list in ipairs(self.db.lists) do
+            for _, id in ipairs(list.items) do
+                if (id == itemID) then
+                    if returnTable then
+                        table.insert(ret, list.id)
+                    else
+                        return true;
+                    end
+                end
+            end
+        end
+    end
+    return ret;
+end
+
+function Database:GetListByID(listID)
+
+end
+
 function Database:List_OnItemDeleted(itemID, listID)
     if self.db and self.db.lists then
         for _, list in ipairs(self.db.lists) do
@@ -449,6 +660,11 @@ function Database:NewPlayer(player)
         end
     end
 end
+
+
+
+
+
 
 
 

@@ -50,6 +50,22 @@
         "PanningModelSceneMixin",
         "CharacterModelScene",
         "NavBar_Reset",
-        "NavBar_AddButton"
-    ]
+        "NavBar_AddButton",
+        "INVTYPE_NON_EQUIP_IGNORE",
+        "CONFIRM_BINDER",
+        "GameTooltip_AddColoredLine",
+        "CONFIRM_LOOT_DISTRIBUTION",
+        "LootFrame",
+        "TALENT_FRAME_APPLY_BUTTON_TEXT",
+        "PanelTemplates_SetNumTabs",
+        "PanelTemplates_UpdateTabs",
+        "PanelTemplates_Tab_OnClick",
+        "SOUNDKIT",
+        "ScrollUtil",
+        "SelectionBehaviorMixin",
+        "ID",
+        "DressUpItemLink",
+        "HandleModifiedItemClick"
+    ],
+    "Lua.type.weakUnionCheck": true
 }
