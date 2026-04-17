@@ -1,5 +1,5 @@
 ## Name: Soft Reserve Plus
-## Version: 1.0
+## Version: 1.01
 ## Interface: 20505
 ## Notes: 
 ## SavedVariables: EpgpPlusSavedVar
